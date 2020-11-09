@@ -1,11 +1,10 @@
-FROM        ubuntu:19.04
+FROM        ubuntu:20.10
 MAINTAINER  Alexander Latyshev <latyshevmb@gmail.com>
 
 WORKDIR /app
 
-RUN apt-get update -y #&& apt-get upgrade -y
-
-RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git vim systemctl
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git vim
 
 # Download sources:
 RUN cd /app && wget \
@@ -15,6 +14,7 @@ RUN cd /app && wget \
 
 # Untar sources
 RUN for f in *.tar.gz; do tar zxf "$f"; done
+
 RUN rm *.tar.gz
 
 # PCRE – Supports regular expressions. Required by the NGINX Core and Rewrite modules.
@@ -56,6 +56,7 @@ RUN openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=Company, Inc./CN=myd
 # Install nodejs
 RUN mkdir /app/nodejs
 COPY package.json /app/nodejs
+
 RUN cd /app/nodejs && apt-get install npm -y
 RUN cd /app/nodejs && npm install
 RUN cd /app/nodejs && npm install typescript -g 
@@ -64,7 +65,3 @@ RUN cd /app/nodejs && npm install express -g
 
 COPY nginxdockerapi.ts /app/nodejs
 RUN cd /app/nodejs && tsc nginxdockerapi.ts
-
-# Run api service
-COPY nginxdockerapi.service /lib/systemd/system
-# RUN systemctl start nginxdockerapi
