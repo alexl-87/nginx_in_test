@@ -1,9 +1,9 @@
-FROM        ubuntu:18.04
+FROM        ubuntu:latest
 MAINTAINER  Alexander Latyshev <latyshevmb@gmail.com>
 
 WORKDIR /app
 
-RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get update -y #&& apt-get upgrade -y
 
 RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git vim systemctl
 
