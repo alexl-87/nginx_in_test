@@ -91,6 +91,6 @@ RUN openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=Company, Inc./CN=myd
 RUN mkdir /app/nodejs
 COPY package.json /app/nodejs
 RUN cd /app/nodejs && apt install npm -y
-RUN npm install express
-RUN npm install typescript -g 
-RUN npm i @types/node
+RUN cd /app/nodejs && npm install express
+RUN cd /app/nodejs && npm install typescript -g 
+RUN cd /app/nodejs && npm i @types/node
