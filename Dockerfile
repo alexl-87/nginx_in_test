@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN apt-get update -y && apt-get upgrade -y
 
-RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git vim npm
+RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git vim
 
 # Download sources:
 #RUN cd /app && wget \
@@ -90,6 +90,7 @@ RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git v
 # Install nodejs
 RUN mkdir /app/nodejs
 COPY package.json /app/nodejs
+RUN cd /app/nodejs && apt-get install npm -y
 RUN cd /app/nodejs && npm install
 RUN cd /app/nodejs && npm install typescript -g 
 RUN cd /app/nodejs && npm install @types/node
