@@ -31,7 +31,7 @@ RUN cd /app/nginx-1.* && \
 # Configure and install NGINX
 RUN cd /app/nginx-1.* && \
  ./configure \
---ith-http_stub_status_module \
+--with-http_stub_status_module \
 --with-http_realip_module \
 --with-threads \
 --with-http_ssl_module \
