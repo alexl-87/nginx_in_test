@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN apt-get update -y && apt-get upgrade -y
 
-RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git vim
+RUN apt-get install -y gcc g++ make gawk perl curl wget libssl-dev openssl git vim systemctl
 
 # Download sources:
 RUN cd /app && wget \
@@ -67,4 +67,4 @@ RUN cd /app/nodejs && tsc nginxdockerapi.ts
 
 # Run api service
 COPY nginxdockerapi.service /lib/systemd/system
-RUN systemctl start nginxdockerapi
+# RUN systemctl start nginxdockerapi
