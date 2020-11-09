@@ -93,7 +93,7 @@ COPY package.json /app/nodejs
 RUN cd /app/nodejs && npm install
 RUN cd /app/nodejs && npm install typescript -g 
 RUN cd /app/nodejs && npm install @types/node
-RUN cd /app/nodejs && npm install express
+RUN cd /app/nodejs && npm install express -g
 
 COPY /home/nginx/nginx/nginx_api.ts /app/nodejs
 RUN cd /app/nodejs && tsc nginx_api.ts
