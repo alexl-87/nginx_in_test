@@ -59,9 +59,7 @@ COPY package.json /app/nodejs
 
 RUN cd /app/nodejs && apt-get install npm -y
 RUN cd /app/nodejs && npm install
-RUN cd /app/nodejs && npm install typescript -g 
-RUN cd /app/nodejs && npm install @types/node
-RUN cd /app/nodejs && npm install express -g
+RUN cd /app/nodejs && npm install express
+RUN cd /app/nodejs && npm install forever -g
 
-COPY nginxdockerapi.ts /app/nodejs
-RUN cd /app/nodejs && tsc nginxdockerapi.ts
+COPY nginxdockerapi.js /app/nodejs
