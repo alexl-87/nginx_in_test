@@ -6,8 +6,8 @@ After=network-online.target
 
 [Service]
 Restart=on-failure
-WorkingDirectory=/home/nginx/nodejs/
-ExecStart=/usr/bin/node /home/nginx/nodejs/nginx_api.js
+WorkingDirectory=/app/nodejs/
+ExecStart=/usr/bin/node /app/nodejs/nginxdockerapi.js
 
 [Install]
 WantedBy=multi-user.target
