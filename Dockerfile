@@ -1,4 +1,4 @@
-FROM        ubuntu:latest
+FROM        ubuntu:19.04
 MAINTAINER  Alexander Latyshev <latyshevmb@gmail.com>
 
 WORKDIR /app
