@@ -61,6 +61,16 @@ app.get('/api/docker/replase/:file/:substring/:replacement', (req,res)=>{
     res.send("SUCCESS");
 });
 
+
+//replase substring in file in git repository
+app.get('/api/docker/test/:word', (req,res)=>{
+
+    let command: string = `echo ${req.params.word}`;
+    console.log("Run command: "+command);
+    runCommand(command);
+    res.send(`echo ${req.params.word}`);
+});
+
 // run bash command
 function runCommand(cmd: string, callback?: (error: any, output: string) => void) {
     if (callback == undefined){
