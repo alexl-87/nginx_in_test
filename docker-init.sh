@@ -3,11 +3,13 @@
 # Build nginx docker image
 docker build -t nginx_forward_proxy:latest /home/nginx/nginx
 
+# Copy files
+cp /home/nginx/nginx/nginx_api.ts /home/nginx/nodejs
+cp /home/nginx/nginx/nginx_api.service /lib/systemd/system
+
 # Compile VM's api
 tsc /home/nginx/nginx/nginx_api.ts
 
-# Copy files and run api service
-cp /home/nginx/nginx/nginx_api.js /home/nginx/nodejs
-cp /home/nginx/nginx/nginx_api.service /lib/systemd/system
+#Run api service
 systemctl start nginx_api
 

@@ -87,10 +87,10 @@ RUN cp /usr/local/nginx/html/50x.html /usr/local/nginx/html/40x.html
 # Create SSL certificate files
 RUN openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=Company, Inc./CN=mydomain.com" -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 
-#install nodejs
-RUN mkdir /app/nodejs
-COPY package.json /app/nodejs
-RUN cd /app/nodejs && apt install npm -y
-RUN cd /app/nodejs && npm install express
-RUN cd /app/nodejs && npm install typescript -g 
-RUN cd /app/nodejs && npm i @types/node
+# Install nodejs
+# RUN mkdir /app/nodejs
+# COPY package.json /app/nodejs
+# RUN cd /app/nodejs && apt install npm -y
+# RUN cd /app/nodejs && npm install express
+# RUN cd /app/nodejs && npm install typescript -g 
+# RUN cd /app/nodejs && npm i @types/node
