@@ -44,9 +44,6 @@ make && make install
 # Add ssl forwarding configuration
 COPY nginx_conf_response_code /usr/local/nginx/conf/
 
-COPY nginx_start.sh /usr/local/nginx/bin/
-RUN  chmod 0700 /usr/local/nginx/bin/nginx_start.sh
-
 # Necessary for the successful SSL certificate files create
 # 'RANDFILE = $ENV::HOME/.rnd' commented out
 COPY openssl.cnf /etc/ssl/openssl.cnf
@@ -66,3 +63,8 @@ RUN cd /app/nodejs && npm install express
 RUN cd /app/nodejs && npm install forever -g
 
 COPY nginxdockerapi.js /app/nodejs
+
+COPY nginx_start.sh /usr/local/nginx/bin/
+RUN  chmod 0700 /usr/local/nginx/bin/nginx_start.sh
+
+ENTRYPOINT /usr/local/nginx/bin/nginx_start.sh
