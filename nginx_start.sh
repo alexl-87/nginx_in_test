@@ -4,4 +4,4 @@
 /usr/local/nginx/sbin/nginx
 
 #start express api
-forever start /app/nodejs/nginxdockerapi.js
+cd /app/nodejs && forever start nginxdockerapi.js

@@ -65,7 +65,7 @@ RUN cd /app/nodejs && npm install forever -g
 COPY nginxdockerapi.js /app/nodejs
 
 # startup script will run nginx and api service app
-COPY nginx_start.sh /usr/local/nginx/bin/
+COPY nginx_start.sh /usr/local/nginx/sbin/
 RUN  chmod 0700 /usr/local/nginx/bin/nginx_start.sh
 
 # ENTRYPOINT /usr/local/nginx/bin/nginx_start.sh
