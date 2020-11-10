@@ -67,5 +67,3 @@ COPY nginxdockerapi.js /app/nodejs
 # startup script will run nginx and api service app
 COPY nginx_start.sh /usr/local/nginx/sbin/
 RUN  chmod 0700 /usr/local/nginx/sbin/nginx_start.sh
-
-# ENTRYPOINT /usr/local/nginx/bin/nginx_start.sh

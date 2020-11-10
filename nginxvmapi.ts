@@ -15,7 +15,7 @@ app.get('/api/docker/run/:port', (req,res)=>{
 // start nginx
 app.get('/api/docker/listen/:port', (req,res)=>{
 
-    let command: string = `docker exec -itd NGINX-${req.params.port} /usr/local/nginx/sbin/nginx`;
+    let command: string = `docker exec -itd NGINX-${req.params.port} /usr/local/nginx/sbin/nginx_start.sh`;
     console.log("Run command: "+command);
     runCommand(command);
     res.send("SUCCESS");
