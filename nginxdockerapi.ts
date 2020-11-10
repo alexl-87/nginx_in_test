@@ -2,73 +2,40 @@ const express = require('express');
 const app = express();
 const { exec } = require("child_process");
 
-// run new docker
-app.get('/api/docker/run/:port', (req,res)=>{
+// reload nginx server
+app.get('/api/nginx/restart', (req,res)=>{
 
-    let command: string = `docker run -t -d -p ${req.params.port}:443 --name NGINX-${req.params.port} --hostname NGINX-${req.params.port} nginx_forward_proxy`;
+    let command: string = "/usr/local/nginx/sbin/nginx -s reload";
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
-
+    res.send("Executed command: "+command);
 });
 
-// start nginx
-app.get('/api/docker/listen/:port', (req,res)=>{
+// replace substring in file
+app.get('/api/nginx/replace/:directory/:file/:substring/:replacement', (req,res)=>{
 
-    let command: string = `docker exec -itd NGINX-${req.params.port} /usr/local/nginx/sbin/nginx`;
+    let command: string = `sed -i 's/${req.params.substring}/${req.params.replacement}/' /usr/local/nginx/${req.params.directory}/${req.params.file}`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
-
+    res.send("Executed command: "+command);
 });
 
-// copy file from git reposytory to directory in root /usr/local/nginx/
-app.get('/api/docker/cp/:port/:file/:directory', (req,res)=>{
+// copy file 
+app.get('/api/nginx/:sourcedir/:destdir/:sourcefile/:destfile', (req,res)=>{
 
-    let command: string = `docker cp /home/nginx/nginx/${req.params.file} NGINX-${req.params.port}:/usr/local/nginx/${req.params.directory}`;
+    let command: string = `cp /usr/local/nginx/${req.params.sourcedir}/${req.params.sourcefile} /usr/local/nginx/${req.params.destdir}/${req.params.destfile}`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
-
-});
-
-// remove docker
-app.get('/api/docker/rm/:port', (req,res)=>{
-    
-    let command: string = `docker rm -f NGINX-${req.params.port}`;
-    console.log("Run command: "+command);
-    runCommand(command);
-    res.send("SUCCESS");
-    
+    res.send("Executed command: "+command);
 });
 
 // set response code
-app.get('/api/docker/response/:port/:response', (req,res)=>{
+app.get('/api/nginx/response/:code', (req,res)=>{
 
-    let command: string = `docker exec -itd NGINX-${req.params.port} /usr/local/nginx/sbin/nginx_${req.params.response}.sh`;
+    let command: string = `sed -i 's/REPLACE_RESPONSE_CODE/${req.params.code}/' /usr/local/nginx/conf/nginx_conf_response_code`;
     console.log("Run command: "+command);
     runCommand(command);
     res.send("SUCCESS");
-
-});
-
-//replase substring in file in git repository
-app.get('/api/docker/replase/:file/:substring/:replacement', (req,res)=>{
-
-    let command: string = `sed -i 's/${req.params.substring}/${req.params.replacement}/' /home/nginx/nginx/${req.params.file}`;
-    console.log("Run command: "+command);
-    runCommand(command);
-    res.send("SUCCESS");
-});
-
-
-//replase substring in file in git repository
-app.get('/api/docker/test/:word', (req,res)=>{
-
-    let command: string = `echo ${req.params.word}`;
-    console.log("Run command: "+command);
-    runCommand(command);
-    res.send(`echo ${req.params.word}`);
 });
 
 // run bash command

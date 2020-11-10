@@ -43,7 +43,7 @@ http {
         #access_log  logs/host.access.log  main;
 
         location / {
-            return REPLACE_RESPONCE_CODE;
+            return REPLACE_RESPONSE_CODE;
         }
 
         # redirect client error pages to the static page /50x.html
