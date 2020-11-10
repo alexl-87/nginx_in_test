@@ -8,17 +8,7 @@ app.get('/api/docker/run/:port', (req,res)=>{
     let command: string = `docker run -t -d -p ${req.params.port}:443 -p ${(req.params.port-1000)}:3000 --name NGINX-${req.params.port} --hostname NGINX-${req.params.port} nginx_forward_proxy`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
-
-});
-
-// start nginx
-app.get('/api/docker/listen/:port', (req,res)=>{
-
-    let command: string = `docker exec -itd NGINX-${req.params.port} /usr/local/nginx/sbin/nginx_start.sh`;
-    console.log("Run command: "+command);
-    runCommand(command);
-    res.send("SUCCESS");
+    res.send("Run command: "+command);
 
 });
 
@@ -28,7 +18,7 @@ app.get('/api/docker/cp/:port/:file/:directory', (req,res)=>{
     let command: string = `docker cp /home/nginx/nginx/${req.params.file} NGINX-${req.params.port}:/usr/local/nginx/${req.params.directory}`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
+    res.send("Run command: "+command);
 
 });
 
@@ -38,7 +28,7 @@ app.get('/api/docker/rm/:port', (req,res)=>{
     let command: string = `docker rm -f NGINX-${req.params.port}`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
+    res.send("Run command: "+command);
     
 });
 
@@ -48,7 +38,7 @@ app.get('/api/docker/response/:port/:response', (req,res)=>{
     let command: string = `docker exec -itd NGINX-${req.params.port} /usr/local/nginx/sbin/nginx_${req.params.response}.sh`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
+    res.send("Run command: "+command);
 
 });
 
@@ -58,7 +48,7 @@ app.get('/api/docker/replase/:file/:substring/:replacement', (req,res)=>{
     let command: string = `sed -i 's/${req.params.substring}/${req.params.replacement}/' /home/nginx/nginx/${req.params.file}`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
+    res.send("Run command: "+command);
 });
 
 // run bash command

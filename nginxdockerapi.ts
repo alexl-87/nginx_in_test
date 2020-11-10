@@ -3,7 +3,7 @@ const app = express();
 const { exec } = require("child_process");
 
 // reload nginx server
-app.get('/api/nginx/restart', (req,res)=>{
+app.get('/api/nginx/reload', (req,res)=>{
 
     let command: string = "/usr/local/nginx/sbin/nginx -s reload";
     console.log("Run command: "+command);
@@ -20,6 +20,16 @@ app.get('/api/nginx/replace/:directory/:file/:substring/:replacement', (req,res)
     res.send("Executed command: "+command);
 });
 
+// start nginx
+app.get('/api/nginx/listen', (req,res)=>{
+
+    let command: string = "/usr/local/nginx/sbin/nginx_start.sh";
+    console.log("Run command: "+command);
+    runCommand(command);
+    res.send("Executed command: "+command);
+
+});
+
 // copy file 
 app.get('/api/nginx/:sourcedir/:sourcefile:/destdir/:destfile', (req,res)=>{
 
@@ -32,7 +42,7 @@ app.get('/api/nginx/:sourcedir/:sourcefile:/destdir/:destfile', (req,res)=>{
 // set response code
 app.get('/api/nginx/response/:code', (req,res)=>{
 
-    let command: string = `sed -i 's/REPLACE_RESPONSE_CODE/${req.params.code}/' /usr/local/nginx/conf/nginx_conf_response_code`;
+    let command: string = `sed -i 's/REPLACE_RESPONSE_CODE/${req.params.code}/' /usr/local/nginx/conf/nginx.conf`;
     console.log("Run command: "+command);
     runCommand(command);
     res.send("SUCCESS");
