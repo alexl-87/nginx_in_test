@@ -5,7 +5,7 @@ const { exec } = require("child_process");
 // run new docker
 app.get('/api/docker/run/:port', (req,res)=>{
 
-    let command: string = `docker run -t -d -p ${req.params.port}:443 --name NGINX-${req.params.port} --hostname NGINX-${req.params.port} nginx_forward_proxy`;
+    let command: string = `docker run -t -d -p ${req.params.port}:443 -p ${(req.params.port-1000)}:3000 --name NGINX-${req.params.port} --hostname NGINX-${req.params.port} nginx_forward_proxy`;
     console.log("Run command: "+command);
     runCommand(command);
     res.send("SUCCESS");

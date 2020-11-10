@@ -21,7 +21,7 @@ app.get('/api/nginx/replace/:directory/:file/:substring/:replacement', (req,res)
 });
 
 // copy file 
-app.get('/api/nginx/:sourcedir/:destdir/:sourcefile/:destfile', (req,res)=>{
+app.get('/api/nginx/:sourcedir/:sourcefile:/destdir/:destfile', (req,res)=>{
 
     let command: string = `cp /usr/local/nginx/${req.params.sourcedir}/${req.params.sourcefile} /usr/local/nginx/${req.params.destdir}/${req.params.destfile}`;
     console.log("Run command: "+command);
