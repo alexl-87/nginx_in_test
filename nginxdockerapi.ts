@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const { exec } = require("child_process");
 
-// reload nginx server
+// reload nginx service
 app.get('/api/nginx/reload', (req,res)=>{
 
     let command: string = "/usr/local/nginx/sbin/nginx -s reload";
