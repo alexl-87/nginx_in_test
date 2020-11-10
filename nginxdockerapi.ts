@@ -20,18 +20,8 @@ app.get('/api/nginx/replace/:directory/:file/:substring/:replacement', (req,res)
     res.send("Executed command: "+command);
 });
 
-// start nginx
-app.get('/api/nginx/listen', (req,res)=>{
-
-    let command: string = "/usr/local/nginx/sbin/nginx_start.sh";
-    console.log("Run command: "+command);
-    runCommand(command);
-    res.send("Executed command: "+command);
-
-});
-
 // copy file 
-app.get('/api/nginx/:sourcedir/:sourcefile:/destdir/:destfile', (req,res)=>{
+app.get('/api/nginx/cp/:sourcedir/:sourcefile:/destdir/:destfile', (req,res)=>{
 
     let command: string = `cp /usr/local/nginx/${req.params.sourcedir}/${req.params.sourcefile} /usr/local/nginx/${req.params.destdir}/${req.params.destfile}`;
     console.log("Run command: "+command);
