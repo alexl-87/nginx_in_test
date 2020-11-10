@@ -14,7 +14,6 @@ RUN cd /app && wget \
 
 # Untar sources
 RUN for f in *.tar.gz; do tar zxf "$f"; done
-
 RUN rm *.tar.gz
 
 # PCRE – Supports regular expressions. Required by the NGINX Core and Rewrite modules.
@@ -41,13 +40,14 @@ RUN cd /app/nginx-1.* && \
 --add-module=./ngx_http_proxy_connect_module && \
 make && make install
 
-# Add ssl forwarding configuration
+# Copy custom response code configuration file
 COPY nginx_conf_response_code /usr/local/nginx/conf/
 
 # Necessary for the successful SSL certificate files create
 # 'RANDFILE = $ENV::HOME/.rnd' commented out
 COPY openssl.cnf /etc/ssl/openssl.cnf
 
+# create return file for 4XX response codes
 RUN cp /usr/local/nginx/html/50x.html /usr/local/nginx/html/40x.html
 
 # Create SSL certificate files
@@ -64,7 +64,8 @@ RUN cd /app/nodejs && npm install forever -g
 
 COPY nginxdockerapi.js /app/nodejs
 
+# startup script will run nginx and api service app
 COPY nginx_start.sh /usr/local/nginx/bin/
 RUN  chmod 0700 /usr/local/nginx/bin/nginx_start.sh
 
-ENTRYPOINT /usr/local/nginx/bin/nginx_start.sh
+# ENTRYPOINT /usr/local/nginx/bin/nginx_start.sh
