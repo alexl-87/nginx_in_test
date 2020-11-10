@@ -21,7 +21,7 @@ app.get('/api/nginx/replace/:directory/:file/:substring/:replacement', (req,res)
 });
 
 // copy file 
-app.get('/api/nginx/cp/:sourcedir/:sourcefile:/destdir/:destfile', (req,res)=>{
+app.get('/api/nginx/cp/:sourcedir/:sourcefile/:destdir/:destfile', (req,res)=>{
 
     let command: string = `cp /usr/local/nginx/${req.params.sourcedir}/${req.params.sourcefile} /usr/local/nginx/${req.params.destdir}/${req.params.destfile}`;
     console.log("Run command: "+command);
@@ -35,7 +35,7 @@ app.get('/api/nginx/response/:code', (req,res)=>{
     let command: string = `sed -i 's/REPLACE_RESPONSE_CODE/${req.params.code}/' /usr/local/nginx/conf/nginx.conf`;
     console.log("Run command: "+command);
     runCommand(command);
-    res.send("SUCCESS");
+    res.send("Executed command: "+command);
 });
 
 // run bash command
